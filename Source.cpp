@@ -2,6 +2,7 @@
 #include<fstream>
 #include<string>
 using namespace std;
+class CreateNewUserFile;
 
 //https://stackoverflow.com/questions/64530809/saving-a-txt-file-into-a-folder-in-the-same-folder-as-the-cpp-file-in-c
 //https://stackoverflow.com/questions/853805/locking-files-using-c-on-windows
@@ -15,7 +16,8 @@ private:
     string full_file_name = first_name + last_name + ".txt";
     ifstream seqFileIn;
     ofstream seqFileOut;
-    const string path_to_folder = "C:\\Users\\amosreginald\\source\\repos\\create files in runtime\\txt_files\\";
+    string path_to_folder;// = "C:\\Users\\amosj\\source\\repos\\Create files in runtime\\txt_files\\";
+
 public:
     void set_first_name(string fn);
     string get_first_name();
@@ -38,7 +40,18 @@ string CreateNewUserFile::get_last_name() { return last_name; }
 string CreateNewUserFile::get_file_name() { return first_name + last_name + ".txt"; }
 string CreateNewUserFile::get_file_path() { return path_to_folder; }
 
-bool CreateNewUserFile::check_for_specific_user_file() 
+void CreateNewUserFile::set_path_to_folder(string ptf)
+{
+    /*//make some automation so that if the users input doesnt have \\ you turn their \ into \\*/
+    this->path_to_folder = ptf;
+}
+
+string CreateNewUserFile::get_path_to_folder()
+{
+    return path_to_folder;
+}
+
+bool CreateNewUserFile::check_for_specific_user_file()
 {//LEFT HERE
     fstream check;
     check.open(get_file_path() + get_file_name());
@@ -48,7 +61,7 @@ bool CreateNewUserFile::check_for_specific_user_file()
 bool CreateNewUserFile::user_file_exists()
 {
     //seqFileIn.open(path_to_folder + full_file_name);
-    
+
     //LEFT HERE
 
     if (seqFileIn)
@@ -75,7 +88,6 @@ void CreateNewUserFile::create_new_file() //not finished
 }
 
 
-
 int main()
 {
     CreateNewUserFile cnuf;
@@ -85,12 +97,14 @@ int main()
 
     //cnuf.user_file_exists();
 
-  
+    cnuf.set_path_to_folder("C:\\Users\\amosj\\source\\repos\\Create files in runtime\\txt_files\\");
+
    // cout << cnuf.get_file_name() << endl;
-   // cout << cnuf.get_file_path() << endl;
+    //cout << cnuf.get_file_path() << endl;
     //cnuf.create_new_file();
     cout << cnuf.check_for_specific_user_file() << endl;
-    
+
+   
 
     //amos r
     return 0;
